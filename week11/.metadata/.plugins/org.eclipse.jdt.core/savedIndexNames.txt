@@ -1,0 +1,14 @@
+INDEX VERSION 1.134+D:\Univ\WebService\week11\.metadata\.plugins\org.eclipse.jdt.core
+2363986558.index
+2087669611.index
+1865797976.index
+622187199.index
+910504349.index
+450735392.index
+4034846059.index
+3505467062.index
+888458463.index
+2862913582.index
+2159776681.index
+2346585259.index
+3208788231.index

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE catalog SYSTEM "BookML.dtd" >
+<catalog>
+  <bookList>
+    <book categories="idvalue0" id="idvalue0">
+      <title>title</title>
+      <author>author</author>
+      <publisher>publisher</publisher>
+      <publishDate day="" month="01" year="">publishDate</publishDate>
+      <price currency="won">
+        <listPrice>listPrice</listPrice>
+        <salesPrice discountRate=" ">salesPrice</salesPrice>
+      </price>
+      <pages>pages</pages>
+      <rating>rating</rating>
+    </book>
+  </bookList>
+  <bookCategory>
+    <category cid="idvalue1">category</category>
+  </bookCategory>
+</catalog>

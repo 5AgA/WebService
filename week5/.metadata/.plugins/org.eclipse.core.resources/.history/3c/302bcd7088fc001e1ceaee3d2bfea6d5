@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog xmlns="http://www.example.org/BookML/2.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.example.org/BookML/2.0 BookML.xsd ">
+  <bookList>
+    <book isbn="895468000-3" xsi:type="bookType">
+      <title>이토록 평범한 미래</title>
+      <author>김연수</author>
+      <publisher>문학동네</publisher>
+      <publishDate day="07" month="10" year="2022"/>
+      <revisionDate day="15" month="11" year="2023"></revisionDate>
+      <price currency="won">
+        <listPrice>14000</listPrice>
+        <salesPrice discountRate="10">12600</salesPrice>
+      </price>
+      <pages>276</pages>
+      <rating>9.4</rating>
+      <category>c101-1-1</category>
+      <coverImage src='https://image.yes24.com/goods/113737429/XL' type="jpeg"/>
+      <description>김연수 9년 만의 신작 소설집. 종말 이후의 사랑에 대한 여덟 편의 이야기. 작가가
+최근 2~3년간 집중적으로 단편 작업에 매진한 끝에 선보이는 소설집으로, '시간'을 인식하는 김연수의 변화된
+시각을 확인할 수 있게 한다. …</description>
+      <review>"우리가 달까지 갈 수는 없지만 갈 수 있다는 듯이 걸어갈 수는 있다. 달이 어디에 있
+는지 찾을 수만 있다면. 마찬가지로 우리는 달까지 걸어가는 것처럼 살아갈 수 있다. 희망의 방향만 찾을 수
+있다면." (-&lt;진주의 결말&gt; 중에서) …</review>
+    </book>
+    <book>
+    	<title>title</title>
+    	<publisher>publisher</publisher>
+    	<publishDate />
+    	<price>
+    		<listPrice>1</listPrice>
+    		<salesPrice>1</salesPrice>
+    	</price>
+    	<pages>0</pages>
+    	<rating>0.0</rating>
+    	<category>category</category>
+    </book>
+  </bookList>
+  <bookCategory>
+    <category cid="" name="">
+      <category cid="" name=""/>
+    </category>
+  </bookCategory>
+</catalog>

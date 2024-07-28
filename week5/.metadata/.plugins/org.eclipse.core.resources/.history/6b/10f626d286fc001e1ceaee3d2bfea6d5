@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog xmlns="http://www.example.org/BookML/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/BookML/2.0 BookML.xsd ">
+  <bookList>
+    <book isbn="" xsi:type="bookType">
+      <title>title</title>
+      <originalTitle>originalTitle</originalTitle>
+      <author>author</author>
+      <translator>translator</translator>
+      <publisher>publisher</publisher>
+      <publishDate day="" month="" year=""/>
+      <revisionDate day="" month="" year=""/>
+      <price currency="won">
+        <listPrice>1</listPrice>
+        <salesPrice discountRate="0">1</salesPrice>
+      </price>
+      <pages>0</pages>
+      <rating>0.0</rating>
+      <category>category</category>
+      <coverImage src="http://tempuri.org" type="{http://www.example.org/BookML/2.0}png"/>
+      <description>description</description>
+      <review>review</review>
+    </book>
+  </bookList>
+  <bookCategory>
+    <category cid="" name="">
+      <category cid="" name=""/>
+    </category>
+  </bookCategory>
+</catalog>

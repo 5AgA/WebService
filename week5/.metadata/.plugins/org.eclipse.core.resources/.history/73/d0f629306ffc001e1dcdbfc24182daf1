@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.example.org/BookML/2.0"
+	xmlns:tns="http://www.example.org/BookML/2.0"
+	elementFormDefault="qualified">
+
+    <simpleType name="ISBNType">
+    	<restriction base="string">
+    		<pattern value="\d{9}-\d|(978|979)-\d{9}-\d"></pattern>
+    	</restriction>
+    </simpleType>
+
+    <simpleType name="DiscountRateType">
+    	<restriction base="integer">
+    		<minInclusive value="0"></minInclusive>
+    		<maxInclusive value="90"></maxInclusive>
+    	</restriction>
+    </simpleType>
+    
+    <simpleType name="PageType">
+    	<restriction base="integer">
+    		<minInclusive value="1"></minInclusive>
+    		<maxInclusive value="1000"></maxInclusive>
+    	</restriction>
+    </simpleType>
+
+    <simpleType name="RatingType">
+    	<restriction base="double">
+    		<minInclusive value="0"></minInclusive>
+    		<maxInclusive value="10"></maxInclusive>
+    	</restriction>
+    </simpleType>
+
+    <simpleType name="CurrencyType">
+    	<restriction base="string">
+    		<enumeration value="won"></enumeration>
+    		<enumeration value="dollar"></enumeration>
+    		<enumeration value="yen"></enumeration>
+    	</restriction>
+    </simpleType>
+
+    <complexType name="PriceType">
+    	<sequence>
+    		<element name="listPrice" type="positiveInteger"></element>
+    		<element name="salesPrice">
+    			<complexType>
+    				<simpleContent>
+    					<extension base="positiveInteger">
+    						<attribute name="discountRate"
+    							type="tns:DiscountRateType">
+    						</attribute>
+    					</extension>
+    				</simpleContent>
+    			</complexType>
+    		</element>
+    	</sequence>
+    	<attribute name="currency" type="tns:CurrencyType"></attribute>
+    </complexType>
+    
+
+    <complexType name="CoverImageType">
+    	<attribute name="src" type="anyURI"></attribute>
+    	<attribute name="type">
+    		<simpleType>
+    			<restriction base="NOTATION">
+    				<enumeration value="bmp"></enumeration>
+    				<enumeration value="gif"></enumeration>
+    				<enumeration value="jpeg"></enumeration>
+    			</restriction>
+    		</simpleType>
+    	</attribute>
+    </complexType>
+
+
+    <complexType name="FileFormatType">
+    	<attribute name="value">
+    		<simpleType>
+    			<restriction base="string">
+    				<enumeration value="EPUB"></enumeration>
+    				<enumeration value="PDF"></enumeration>
+    				<enumeration value="StreamText"></enumeration>
+    				<enumeration value="StreamImage"></enumeration>
+    			</restriction>
+    		</simpleType>
+    	</attribute>
+    </complexType>
+
+
+    <complexType name="FileSizeType">
+    	<simpleContent>
+    		<extension base="double">
+    			<attribute name="unit">
+    				<simpleType>
+    					<restriction base="string">
+    						<enumeration value="KB"></enumeration>
+    						<enumeration value="MB"></enumeration>
+    						<enumeration value="GB"></enumeration>
+    						<enumeration value="B"></enumeration>
+    					</restriction>
+    				</simpleType>
+    			</attribute>
+    		</extension>
+    	</simpleContent>
+    </complexType>
+
+    <attributeGroup name="Date">
+    	<attribute name="year">
+    		<simpleType>
+    			<restriction base="tns:NewSimpleType">
+    				<pattern value="19\d{2}|20(0|1)\d|202(0|1|2|3|4)"></pattern>
+    			</restriction>
+    		</simpleType>
+    	</attribute>
+    	<attribute name="month">
+    		<simpleType>
+    			<restriction base="tns:NewSimpleType1">
+    				<pattern value="0(1|2|3|4|5|6|7|8|9)|1(0|1|2)"></pattern>
+    			</restriction>
+    		</simpleType>
+    	</attribute>
+    	<attribute name="day">
+    		<simpleType>
+    			<restriction base="tns:NewSimpleType2">
+    				<pattern
+    					value="0(1|2|3|4|5|6|7|8|9)|(1|2)\d|(30|31)">
+    				</pattern>
+    			</restriction>
+    		</simpleType>
+    	</attribute>
+    </attributeGroup>
+
+    <simpleType name="NewSimpleType">
+    	<restriction base="string"></restriction>
+    </simpleType>
+
+    <simpleType name="NewSimpleType1">
+    	<restriction base="string"></restriction>
+    </simpleType>
+
+    <simpleType name="NewSimpleType2">
+    	<restriction base="string"></restriction>
+    </simpleType>
+
+    <element name="publishDate">
+    	<complexType><attributeGroup ref="tns:Date"></attributeGroup></complexType>
+    </element>
+
+    <element name="revisionDate">
+    	<complexType><attributeGroup ref="tns:Date"></attributeGroup></complexType>
+    </element>
+
+    <element name="catalog">
+    	<complexType>
+    		<sequence>
+    			<element ref="tns:bookList"></element>
+    			<element ref="tns:bookCategory"></element>
+    		</sequence>
+    	</complexType>
+    </element>
+
+    <element name="bookList">
+    	<complexType>
+    	</complexType>
+    </element>
+    
+    <element name="bookCategory">
+    	<complexType>
+    		<sequence>
+    			<element name="category" type="tns:CategoryType" maxOccurs="unbounded" minOccurs="1"></element>
+    		</sequence>
+    		<attribute name="cid" type="string"></attribute>
+    		<attribute name="name" type="string"></attribute>
+    	</complexType>
+    </element>
+
+    <complexType name="bookType">
+    	<sequence>
+    		<element name="title" type="string"></element>
+    		<element name="originalTitle" type="string" maxOccurs="1" minOccurs="0"></element>
+    		<element name="author" type="string" maxOccurs="unbounded"
+    			minOccurs="0">
+    		</element>
+    		<element name="translator" type="string"
+    			maxOccurs="unbounded" minOccurs="0">
+    		</element>
+    		<element name="publisher" type="string"></element>
+    		<element ref="tns:publishDate"></element>
+    		<element ref="tns:revisionDate" maxOccurs="unbounded"
+    			minOccurs="0">
+    		</element>
+    		<element name="price" type="tns:PriceType"></element>
+    		<element name="pages" type="tns:PageType"></element>
+    		<element name="rating" type="tns:RatingType"></element>
+    		<element name="category" type="string" maxOccurs="unbounded"
+    			minOccurs="1">
+    		</element>
+    		<element name="coverImage" type="tns:CoverImageType"
+    			maxOccurs="1" minOccurs="0">
+    		</element>
+    		<element name="description" type="string" maxOccurs="1"
+    			minOccurs="0">
+    		</element>
+    		<element name="review" type="string" maxOccurs="20"
+    			minOccurs="0">
+    		</element>
+
+    	</sequence>
+    	<attribute name="isbn" type="tns:ISBNType"></attribute>
+    </complexType>
+
+    <complexType name="eBookType">
+    	<complexContent>
+    		<extension base="tns:bookType">
+    			<sequence>
+    				<element name="format" type="tns:FileFormatType"></element>
+    				<element name="size" type="tns:FileSizeType"></element>
+    				<element name="period" type="positiveInteger" maxOccurs="1" minOccurs="0"></element>
+    			</sequence>
+    		</extension>
+    	</complexContent>
+    </complexType>
+
+    <complexType name="newEBookType">
+    	<complexContent>
+            <restriction base="tns:eBookType">
+    			<sequence>
+    				<element name="title" type="string"></element>
+    				<element name="originalTitle" type="string" maxOccurs="1" minOccurs="0"></element>
+    				<element name="author" type="string" maxOccurs="unbounded" minOccurs="0">
+    				</element>
+    				<element name="translator" type="string" maxOccurs="unbounded" minOccurs="0">
+    				</element>
+    				<element name="publisher" type="string"></element>
+    				<element ref="tns:publishDate"></element>
+    				<element ref="tns:revisionDate" maxOccurs="0" minOccurs="0">
+    				</element>
+    				<element name="price" type="tns:PriceType"></element>
+    				<element name="pages" type="tns:PageType"></element>
+    				<element name="rating" type="tns:RatingType"></element>
+    				<element name="category" type="string" maxOccurs="unbounded" minOccurs="1">
+    				</element>
+    				<element name="coverImage" type="tns:CoverImageType" maxOccurs="1" minOccurs="0">
+    				</element>
+    				<element name="description" type="string" maxOccurs="1" minOccurs="0">
+    				</element>
+    				<element name="review" type="string" maxOccurs="20" minOccurs="0">
+    				</element>
+    				<element name="format" type="tns:FileFormatType"></element>
+    				<element name="size" type="tns:FileSizeType"></element>
+    				<element name="period" type="positiveInteger" maxOccurs="14" minOccurs="0"></element>
+    			</sequence>
+    			<attribute name="isbn" type="tns:ISBNType"></attribute>
+    		</restriction>
+    	</complexContent>
+    </complexType>
+
+
+    <complexType name="CategoryType">
+    	<sequence>
+    		<element name="category" type="tns:CategoryType" maxOccurs="unbounded" minOccurs="0"></element>
+    	</sequence>
+    	<attribute name="cid" type="string"></attribute>
+    	<attribute name="name" type="string"></attribute>
+    </complexType>
+</schema>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.example.org/BookML/2.0"
+	xmlns:tns="http://www.example.org/BookML/2.0"
+	elementFormDefault="qualified">
+
+    <simpleType name="DiscountRateType">
+    	<restriction base="integer">
+    		<minInclusive value="0"></minInclusive>
+    		<maxInclusive value="90"></maxInclusive>
+    	</restriction>
+    </simpleType>
+
+    <simpleType name="ISBNType">
+    	<restriction base="string">
+    		<pattern value="\d{9}-\d|(978|979)-\d{9}-\d"></pattern>
+    	</restriction>
+    </simpleType>
+
+    <complexType name="BookType">
+    	<sequence>
+    		<element name="title" type="string"></element>
+    		<element name="author" type="string" maxOccurs="20"
+    			minOccurs="1">
+    		</element>
+    		<element ref="tns:publishDate"></element>
+    	</sequence>
+    	<attribute name="isbn" type="tns:ISBNType"></attribute>
+    </complexType>
+
+
+    <element name="catalog">
+    	<complexType>
+    		<sequence>
+    			<element name="bookList">
+    				<complexType>
+    					<sequence>
+    						<element name="book" type="tns:BookType"></element>
+    					</sequence>
+    				</complexType></element>
+    			<element name="bookCategory" type="string"></element>
+    		</sequence>
+    	</complexType>
+    </element>
+
+    <element name="publishDate">
+    	<complexType><attributeGroup ref="tns:publishDate"></attributeGroup></complexType>
+    </element>
+    
+    <element name="revisionDate">
+    	<complexType><attributeGroup ref="tns:revisionDate"></attributeGroup></complexType>
+    </element>
+    
+    <complexType name="SalesPriceType">
+    	<simpleContent>
+    		<extension base="integer">
+    			<attribute name="discountRate" type="tns:DiscountRateType"></attribute>
+    		</extension>
+    	</simpleContent>
+    </complexType>
+
+
+    <attributeGroup name="publishDate">
+    	<attribute name="year">
+    		<simpleType>
+    			<restriction base="tns:NewSimpleType">
+    				<pattern value="19\d{2}|20\d{2}"></pattern>
+    			</restriction>
+    		</simpleType>
+    	</attribute>
+    	<attribute name="month">
+    		<simpleType>
+    			<restriction base="tns:NewSimpleType1">
+    				<pattern
+    					value="(01|02|03|04|05|06|07|08|09|10|11|12)">
+    				</pattern>
+    			</restriction>
+    		</simpleType>
+    	</attribute>
+    	<attribute name="day">
+    		<simpleType>
+    			<restriction base="string">
+    				<pattern
+    					value="(01|02|03|04|05|06|07|08|09)|(1|2)\d|(30|31)">
+    				</pattern>
+    			</restriction>
+    		</simpleType>
+    	</attribute>
+    </attributeGroup>
+    
+    <attributeGroup name="revisionDate">
+    	<attribute name="year">
+    		<simpleType>
+    			<restriction base="tns:NewSimpleType">
+    				<pattern value="19\d{2}|20\d{2}"></pattern>
+    			</restriction>
+    		</simpleType>
+    	</attribute>
+    	<attribute name="month">
+    		<simpleType>
+    			<restriction base="tns:NewSimpleType1">
+    				<pattern
+    					value="(01|02|03|04|05|06|07|08|09|10|11|12)">
+    				</pattern>
+    			</restriction>
+    		</simpleType>
+    	</attribute>
+    	<attribute name="day">
+    		<simpleType>
+    			<restriction base="string">
+    				<pattern
+    					value="(01|02|03|04|05|06|07|08|09)|(1|2)\d|(30|31)">
+    				</pattern>
+    			</restriction>
+    		</simpleType>
+    	</attribute>
+    </attributeGroup>
+
+    <simpleType name="NewSimpleType">
+    	<restriction base="string"></restriction>
+    </simpleType>
+
+    <simpleType name="NewSimpleType1">
+    	<restriction base="string"></restriction>
+    </simpleType>
+
+    <simpleType name="NewSimpleType2">
+    	<restriction base="integer"></restriction>
+    </simpleType>
+</schema>

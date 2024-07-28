@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.example.org/BookML/2.0"
+	xmlns:tns="http://www.example.org/BookML/2.0"
+	elementFormDefault="qualified">
+
+    <simpleType name="DiscountRateType">
+    	<restriction base="integer">
+    		<minInclusive value="0"></minInclusive>
+    		<maxInclusive value="90"></maxInclusive>
+    	</restriction>
+    </simpleType>
+
+    <simpleType name="ISBNType">
+    	<restriction base="string">
+    		<pattern value="\d{9}-\d|(978|979)-\d{9}-\d"></pattern>
+    	</restriction>
+    </simpleType>
+
+    <complexType name="BookType">
+    	<sequence>
+    		<element name="title" type="string"></element>
+    		<element name="author" type="string" maxOccurs="20"
+    			minOccurs="1">
+    		</element>
+    		<element ref="tns:publishDate"></element>
+    	</sequence>
+    	<attribute name="isbn" type="tns:ISBNType"></attribute>
+    </complexType>
+
+
+    <element name="catalog">
+    	<complexType>
+    		<sequence>
+    			<element name="bookList">
+    				<complexType>
+    					<sequence>
+    						<element name="book" type="tns:BookType"></element>
+    					</sequence>
+    				</complexType></element>
+    			<element name="bookCategory" type="string"></element>
+    		</sequence>
+    	</complexType>
+    </element>
+
+    <element name="publishDate" type="string"></element>
+
+    <complexType name="SalesPriceType">
+    	<simpleContent>
+    		<extension base="integer">
+    			<attribute name="discountRate" type="tns:DiscountRateType"></attribute>
+    		</extension>
+    	</simpleContent>
+    </complexType>
+</schema>

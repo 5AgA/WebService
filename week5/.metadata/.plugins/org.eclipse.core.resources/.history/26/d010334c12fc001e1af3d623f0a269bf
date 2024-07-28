@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.example.org/BookML/2.0"
+	xmlns:tns="http://www.example.org/BookML/2.0"
+	elementFormDefault="qualified">
+
+    <simpleType name="ISBNType">
+    	<restriction base="string">
+    		<pattern value="\d{9}-\d|(978|979)-\d{9}-\d"></pattern>
+    	</restriction>
+    </simpleType>
+
+    <simpleType name="DiscountRateType">
+    	<restriction base="integer">
+    		<minInclusive value="0"></minInclusive>
+    		<maxInclusive value="90"></maxInclusive>
+    	</restriction>
+    </simpleType>
+    
+    <simpleType name="PageType">
+    	<restriction base="integer">
+    		<minInclusive value="1"></minInclusive>
+    		<maxInclusive value="1000"></maxInclusive>
+    	</restriction>
+    </simpleType>
+
+    <simpleType name="RatingType">
+    	<restriction base="double">
+    		<minInclusive value="0"></minInclusive>
+    		<maxInclusive value="10"></maxInclusive>
+    	</restriction>
+    </simpleType>
+
+    <simpleType name="CurrencyType">
+    	<restriction base="string">
+    		<enumeration value="won"></enumeration>
+    		<enumeration value="dollar"></enumeration>
+    		<enumeration value="yen"></enumeration>
+    	</restriction>
+    </simpleType>
+
+    <complexType name="PriceType">
+    	<sequence>
+    		<element name="listPrice" type="positiveInteger"></element>
+    		<element name="salesPrice">
+                <complexType>
+                	<simpleContent>
+                		<extension base="positiveInteger">
+                			<attribute name="discountRate"
+                				type="tns:DiscountRateType">
+                			</attribute>
+                		</extension>
+                	</simpleContent>
+                </complexType>
+    		</element>
+    	</sequence>
+    </complexType>
+
+
+    <complexType name="CoverImageType">
+    	<attribute name="src" type="anyURI"></attribute>
+    	<attribute name="type" type="NOTATION"></attribute>
+    </complexType>
+
+
+    <complexType name="FileFormatType">
+    	<attribute name="value">
+    		<simpleType>
+    			<restriction base="string">
+    				<enumeration value="EPUB"></enumeration>
+    				<enumeration value="PDF"></enumeration>
+    				<enumeration value="StreamText"></enumeration>
+    				<enumeration value="StreamImage"></enumeration>
+    			</restriction>
+    		</simpleType>
+    	</attribute>
+    </complexType>
+
+
+    <complexType name="FileSizeType">
+    	<simpleContent>
+    		<extension base="double">
+    			<attribute name="unit">
+    				<simpleType>
+    					<restriction base="string">
+    						<enumeration value="KB"></enumeration>
+    						<enumeration value="MB"></enumeration>
+    						<enumeration value="GB"></enumeration>
+    						<enumeration value="B"></enumeration>
+    					</restriction>
+    				</simpleType>
+    			</attribute>
+    		</extension>
+    	</simpleContent>
+    </complexType>
+</schema>

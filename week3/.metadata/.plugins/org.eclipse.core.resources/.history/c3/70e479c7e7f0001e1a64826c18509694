@@ -1,0 +1,63 @@
+<!ENTITY % dateAttr "year CDATA #REQUIRED
+					month (01|02|03|04|05|06|07|08|09|10|11|12) #REQUIRED
+					day CDATA #REQUIRED">
+<!ENTITY % bookElement "(title, originalTitle*, author+, translator*, publisher, 
+					publishDate, revisionDate*, price, pages, rating, coverImage, 
+					description, review)">
+<!ENTITY % eBookElement "(title, originalTitle*, author+, translator*, publisher, 
+					publishDate, revisionDate*, price, pages, rating, coverImage, 
+					description, review, format, size, period*)">
+					
+<!NOTATION jpeg PUBLIC "image/jpeg" "imageViewer.exe">
+<!NOTATION gif PUBLIC "image/gif" "photoViewer.exe">
+					
+<!ELEMENT catalog (bookList, bookCategory)>
+
+<!-- Book List -->
+<!ELEMENT bookList (book*, ebook*)>
+
+<!ELEMENT book %bookElement;>
+<!ELEMENT ebook %eBookElement;>
+<!ATTLIST book id ID #REQUIRED categories IDREFS #REQUIRED>
+<!ATTLIST ebook id ID #REQUIRED categories IDREFS #REQUIRED>
+
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT originalTitle (#PCDATA)>
+
+<!ELEMENT author (#PCDATA)>
+<!ELEMENT translator (#PCDATA)>
+
+<!ELEMENT publisher (#PCDATA)>
+
+<!ELEMENT publishDate (#PCDATA)>
+<!ATTLIST publishDate %dateAttr;>
+
+<!ELEMENT revisionDate (#PCDATA)>
+<!ATTLIST revisionDate %dateAttr;>
+					
+<!ELEMENT price (listPrice, salesPrice)>
+<!ATTLIST price currency CDATA "won">
+<!ELEMENT listPrice (#PCDATA)>
+<!ELEMENT salesPrice (#PCDATA)>
+<!ATTLIST salesPrice discountRate CDATA " ">
+
+<!ELEMENT pages (#PCDATA)>
+<!ELEMENT rating (#PCDATA)>
+<!ELEMENT coverImage (#PCDATA)>
+<!ATTLIST coverImage src CDATA #REQUIRED type NOTATION (jpeg|gif) "jpeg">
+
+<!ELEMENT description (#PCDATA)>
+<!ELEMENT review (#PCDATA)>
+
+<!ELEMENT format (#PCDATA)>
+<!ATTLIST format value CDATA #REQUIRED>
+
+<!ELEMENT size (#PCDATA)>
+<!ATTLIST size unit 
+<!ELEMENT period (#PCDATA)>
+
+
+ <!-- Book Category -->
+<!ELEMENT bookCategory (category*)>
+<!ELEMENT category (#PCDATA)>
+<!ATTLIST category cid ID #REQUIRED>
